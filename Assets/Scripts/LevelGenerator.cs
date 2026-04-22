@@ -10,6 +10,12 @@ public class LevelGenerator : MonoBehaviour
 
     private float Index = 0;
 
+    // Dificultad
+    private float VelocidadActual = 4f;
+    private float VelocidadMaxima = 12f;
+    private float AumentoVelocidad = 0.3f; // cuanto sube por segundo
+    private float TiempoJuego = 0f;
+
     private void Start()
     {
         GameObject StartPlane1 = Instantiate(StartTile, transform);
@@ -26,18 +32,25 @@ public class LevelGenerator : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.position += new Vector3(4 * Time.deltaTime, 0, 0);
+        // Aumenta velocidad con el tiempo
+        TiempoJuego += Time.deltaTime;
+        VelocidadActual = Mathf.Min(
+            4f + TiempoJuego * AumentoVelocidad,
+            VelocidadMaxima
+        );
 
-        if(transform.position.x >= Index)
+        gameObject.transform.position += new Vector3(VelocidadActual * Time.deltaTime, 0, 0);
+
+        if (transform.position.x >= Index)
         {
             int RandomInt1 = Random.Range(0, 2);
 
-            if(RandomInt1 == 1)
+            if (RandomInt1 == 1)
             {
                 GameObject TempTile1 = Instantiate(Tile1, transform);
                 TempTile1.transform.position = new Vector3(-16, 0, 0);
             }
-            else if(RandomInt1 == 0)
+            else if (RandomInt1 == 0)
             {
                 GameObject TempTile1 = Instantiate(Tile2, transform);
                 TempTile1.transform.position = new Vector3(-16, 0, 0);
@@ -45,12 +58,12 @@ public class LevelGenerator : MonoBehaviour
 
             int RandomInt2 = Random.Range(0, 2);
 
-            if(RandomInt2 == 1)
+            if (RandomInt2 == 1)
             {
                 GameObject TempTile2 = Instantiate(Tile1, transform);
                 TempTile2.transform.position = new Vector3(-24, 0, 0);
             }
-            else if(RandomInt2 == 0)
+            else if (RandomInt2 == 0)
             {
                 GameObject TempTile2 = Instantiate(Tile2, transform);
                 TempTile2.transform.position = new Vector3(-24, 0, 0);
@@ -58,5 +71,11 @@ public class LevelGenerator : MonoBehaviour
 
             Index = Index + 15.95f;
         }
+    }
+
+    // Para que el Movement también sepa la velocidad actual
+    public float GetVelocidad()
+    {
+        return VelocidadActual;
     }
 }

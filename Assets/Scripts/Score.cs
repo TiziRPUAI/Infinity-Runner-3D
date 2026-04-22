@@ -6,24 +6,46 @@ public class Score : MonoBehaviour
 {
     public int ScoreInt;
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI HighScoreText;
 
-    // Colores
-    private Color colorNormal = Color.white;
-    private Color colorPunch = new Color(1f, 0.9f, 0.2f); // amarillo dorado
+    private int HighScore;
 
-    private Vector3 tamañoNormal = new Vector3(1f, 1f, 1f);
-    private Vector3 tamañoGrande = new Vector3(1.5f, 1.5f, 1f);
+    private void Start()
+    {
+        // Carga el highscore guardado
+        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        ActualizarHighScore();
+    }
 
     public void ScorePlusOne()
     {
         ScoreInt++;
+
+        // Si supera el record lo guarda
+        if (ScoreInt > HighScore)
+        {
+            HighScore = ScoreInt;
+            PlayerPrefs.SetInt("HighScore", HighScore);
+            PlayerPrefs.Save();
+        }
+
         StopAllCoroutines();
         StartCoroutine(AnimacionScore());
     }
 
+    private void ActualizarHighScore()
+    {
+        if (HighScoreText != null)
+            HighScoreText.text = "Best: " + HighScore.ToString();
+    }
+
     private IEnumerator AnimacionScore()
     {
-        // --- CRECE Y SE PONE DORADO ---
+        Vector3 tamañoNormal = new Vector3(1f, 1f, 1f);
+        Vector3 tamañoGrande = new Vector3(1.5f, 1.5f, 1f);
+        Color colorNormal = Color.white;
+        Color colorPunch = new Color(1f, 0.9f, 0.2f);
+
         float tiempo = 0f;
         while (tiempo < 0.12f)
         {
@@ -34,7 +56,6 @@ public class Score : MonoBehaviour
             yield return null;
         }
 
-        // --- VUELVE A NORMAL ---
         tiempo = 0f;
         while (tiempo < 0.15f)
         {
@@ -45,7 +66,6 @@ public class Score : MonoBehaviour
             yield return null;
         }
 
-        // Asegura valores exactos al final
         ScoreText.transform.localScale = tamañoNormal;
         ScoreText.color = colorNormal;
     }
@@ -53,5 +73,6 @@ public class Score : MonoBehaviour
     private void Update()
     {
         ScoreText.text = ScoreInt.ToString();
+        ActualizarHighScore();
     }
-}
+}   

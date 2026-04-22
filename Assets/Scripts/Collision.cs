@@ -7,7 +7,9 @@ public class Collision : MonoBehaviour
 {
     public GameObject PanelGameOver;
     public TextMeshProUGUI TextScoreFinal;
+    public TextMeshProUGUI TextHighScoreFinal;
     public Score ScoreScript;
+    public AudioClip SonidoChoque;
 
     private void Start()
     {
@@ -26,10 +28,21 @@ public class Collision : MonoBehaviour
     {
         Time.timeScale = 0f;
         PanelGameOver.SetActive(true);
+
         TextScoreFinal.text = "Score: " + ScoreScript.ScoreInt.ToString();
 
-        // Oculta el score del juego
+        // Muestra el highscore
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        TextHighScoreFinal.text = "Best: " + highScore.ToString();
+
+        // Si es record nuevo lo marca
+        if (ScoreScript.ScoreInt >= highScore)
+            TextHighScoreFinal.text = "★ Nuevo Record: " + highScore.ToString();
+
+        // Oculta el Best durante game over
+        ScoreScript.HighScoreText.gameObject.SetActive(false);
         ScoreScript.ScoreText.gameObject.SetActive(false);
+        AudioSource.PlayClipAtPoint(SonidoChoque, Camera.main.transform.position);
     }
 
     public void Reiniciar()

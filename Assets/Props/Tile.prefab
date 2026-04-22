@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7233996520225180197}
-  - component: {fileID: 9070513733124619848}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -33,18 +32,6 @@ Transform:
   - {fileID: 3815018577199388264}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &9070513733124619848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5371388168229630973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a02209ba9d244b84b93abfe20057a6d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BendyMaterialSetup
 --- !u!1001 &2305900236278285478
 PrefabInstance:
   m_ObjectHideFlags: 0

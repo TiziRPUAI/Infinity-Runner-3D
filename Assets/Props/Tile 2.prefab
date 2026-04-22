@@ -637,6 +637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a898afb8672de948b2015e3ea1e1801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticulaPrefab: {fileID: 7062220991986251359, guid: 144c7c3100c0e4742827103004a052ca, type: 3}
+  SonidoManzana: {fileID: 8300000, guid: dd56a660371698d4d87d93fbe7c664e9, type: 3}
 --- !u!4 &7361307094742374982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2654836902291847595, guid: aacc89bda3fb47b48bcd5cb162948c23, type: 3}
